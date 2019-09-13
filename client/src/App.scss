@@ -8,8 +8,19 @@
 
 .header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 10px;
+  align-items: baseline;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #6086ac;
+    font-size: 1.25em;
+  }
 }
 
 .content {

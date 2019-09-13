@@ -1,0 +1,27 @@
+.Table {
+  display: flex;
+  flex-direction: column;
+
+  .TableHeader {
+    display: flex;
+    flex-direction: row;
+
+    .TableHeaderCell {
+
+    }
+  }
+
+  .TableRows {
+    display: flex;
+    flex-direction: column;
+
+    .TableRow {
+      display: flex;
+      flex-direction: row;
+
+      .TableCell {
+        color: #aaa;
+      }
+    }
+  }
+}

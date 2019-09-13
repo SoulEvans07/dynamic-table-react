@@ -2,7 +2,12 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 
 const initialState = {
-  error: null
+  error: null,
+  table: {
+    schema: [],
+    rows: [],
+    cells: []
+  }
 }
 
 function rootReducer(state, action) {
