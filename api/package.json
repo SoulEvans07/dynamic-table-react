@@ -1,0 +1,23 @@
+{
+  "name": "dynamic-table-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/main.js",
+    "db": "npx babel-node --presets @babel/preset-env ./db/db.js"
+  },
+  "author": "soul",
+  "dependencies": {
+    "dotenv-safe": "^8.1.0",
+    "hapi": "^18.1.0",
+    "mongoose": "^5.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-plugin-wildcard": "^5.0.0",
+    "nodemon": "^1.19.2"
+  }
+}
