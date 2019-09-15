@@ -2,25 +2,58 @@
   display: flex;
   flex-direction: column;
 
+  $row_num_width: 30px;
+  $header_height: 20px;
+
   .TableHeader {
     display: flex;
     flex-direction: row;
+    height: $header_height;
+
+    .TableCorner {
+      width: $row_num_width;
+      border: 1px solid #eee;
+      background: #eee;
+      padding: 2px 5px;
+    }
 
     .TableHeaderCell {
-
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      border-top: 1px solid #eee;
+      
+      padding: 2px 5px;
     }
   }
 
   .TableRows {
     display: flex;
     flex-direction: column;
+    color: #aaa;
 
     .TableRow {
       display: flex;
       flex-direction: row;
 
+      .TableRowNum {
+        width: $row_num_width;
+        color: #ccc;
+        padding: 2px 5px;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        border-left: 1px solid #eee;
+        text-align: center;
+        user-select: none;
+      }
+
       .TableCell {
-        color: #aaa;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 2px 5px;
+
+        &.selected {
+          outline: 1px auto #8888ff;
+        }
       }
     }
   }
