@@ -34,6 +34,7 @@
     .TableRow {
       display: flex;
       flex-direction: row;
+      height: 20px;
 
       .TableRowNum {
         width: $row_num_width;

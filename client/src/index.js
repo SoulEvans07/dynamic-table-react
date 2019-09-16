@@ -8,6 +8,6 @@ import store from './store'
 window.store = store
 
 ReactDOM.render(
-  <App store={store} />,
+  <App state={ store.getState() } dispatch={ store.dispatch } />,
   document.getElementById('root')
 )
