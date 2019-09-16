@@ -24,6 +24,27 @@ class DynamicTableCell extends Component {
     return getRef(table, col, row) === this.state.selected_cell
   }
 
+  selectCell(table, col, row) {
+    this.props.dispatch({ type: "SELECT_CELL", payload: { selected_cell: getRef(table, col, row) } })
+  }
+
+  editCell = () => {
+    const table = this.props.table
+    const col = this.props.column
+    const row = this.props.row
+    const ref = getRef(table.id, col.id, row.id)
+    this.props.dispatch({
+      type: "EDIT_CELL", 
+      payload: { 
+        ref,
+        tableId: table.id,
+        colId: col.id,
+        rowId: row.id,
+        cell: { value: this.refs.el.innerText } 
+      }
+    })
+  }
+
   render() {
     const table = this.props.table
     const col = this.props.column
@@ -41,10 +62,15 @@ class DynamicTableCell extends Component {
     
     return (
       <div 
+        contentEditable
+        suppressContentEditableWarning
+        ref="el"
         className={ cellStyleClass.join(' ') }
         style={ cellStyle }
         key={ getRef(table.id, col.id, row.id) }
-        onClick={ () => this.selectCell(table.id, col.id, row.id) }>
+        onClick={ () => this.selectCell(table.id, col.id, row.id) }
+        onBlur={ this.editCell }
+      >
         { !!cell && cell.value }
       </div>
     )

@@ -16,6 +16,7 @@ class DynamicTable extends Component {
     store.subscribe(() => {
       const state = store.getState()
 
+      const selected_cell = state.selected_cell
       const selected_table = state.selected_table
       const table = state.tables.find(table => table.id === selected_table)
       const columns = state.columns.filter(col => col.tableId === table.id).sort((a,b) => a.index - b.index)
@@ -26,7 +27,7 @@ class DynamicTable extends Component {
         columns, 
         rows, 
         cells: state.cells ,
-        selected_cell: this.state.selected_cell,
+        selected_cell: selected_cell,
         cell_map: state.cell_map
       }
       current.cells.forEach(cell => {
@@ -38,10 +39,6 @@ class DynamicTable extends Component {
       }
     })
   }
-
-  selectCell(table, col, row) {
-    this.setState({ selected_cell: getRef(table, col, row) })
-  }  
 
   getExcelPos(ref) {
     const [, tableId, colId, rowId] = ref.match(/^#(\w+)@(\w+):(\w+)$/)
