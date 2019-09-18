@@ -31,7 +31,7 @@ class DynamicTable extends Component {
         cell_map: state.cell_map
       }
       current.cells.forEach(cell => {
-        current.cell_map.set(getRef(cell.tableId, cell.colId, cell.rowId), cell)
+        current.cell_map[getRef(cell.tableId, cell.colId, cell.rowId)] = cell
       })
 
       if(this.state !== current) {
@@ -61,7 +61,7 @@ class DynamicTable extends Component {
     const rows = this.state.rows
     const cell_map = this.state.cell_map
     const selected_cell = this.state.selected_cell
-    const selectedCell = cell_map.get(selected_cell)
+    const selectedCell = cell_map[selected_cell]
 
     return (
       <div className="Table">

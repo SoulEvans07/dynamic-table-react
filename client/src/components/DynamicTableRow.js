@@ -38,7 +38,7 @@ class DynamicTableRow extends Component {
         <div className="TableRowNum">{ row.index }</div>
         { columns.map(col => {
             const ref = getRef(table.id, col.id, row.id)
-            const cell = cell_map.get(ref)
+            const cell = cell_map[ref]
 
             return (
               <DynamicTableCell
