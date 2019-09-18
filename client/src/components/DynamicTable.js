@@ -81,14 +81,13 @@ class DynamicTable extends Component {
 
     return (
       <div className="Table">
-        <div>{ this.state.selected_cell }</div>
-        <div>value: { !!selectedCell && selectedCell.value }</div>
+        <div>ref: { this.state.selected_cell }</div>
         <div>pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }</div>
         <div className="EditRow">
           <i className="Icon fas fa-percentage"></i>
           <input
             className="SelectedCell"
-            value={ !!selectedCell && selectedCell.value }
+            value={ selectedCell ? selectedCell.value : "" }
             onChange={ this.editSelected }
           />
         </div>

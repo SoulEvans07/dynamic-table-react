@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import getRef from '../helpers/getRef'
 import store from '../store'
+import { evaluate } from 'mathjs'
 
 class DynamicTableCell extends Component {
   constructor(props) {
@@ -49,13 +50,37 @@ class DynamicTableCell extends Component {
     this.refs.el.innerText = this.calcValue(this.props.cell)
   }
 
+  calcExpression(expr) {
+    const map = store.getState().cell_map
+    const tokenize = (ex) => ex.split(/(#\w+@\w+:\w+)/)
+    let value = ""
+
+    let tokens = tokenize(expr)
+    tokens = tokens.map(token => {
+      if(token.match(/^#\w+@\w+:\w+$/)){
+        const cell = map[token]
+        return cell ? cell.value : "#REF!"
+      } else {
+        return token
+      }
+    })
+    
+    expr = tokens.join('')
+    try {
+      value = evaluate(expr)
+    } catch(e) {
+      value = "#REF!"
+    }
+
+    return value
+  }
+
   calcValue(cell) {
     let value = ""
 
     if(cell && cell.value && typeof cell.value === 'string'){
-      if(cell.value.startsWith('${') && cell.value.endsWith('}')){
-        const ref = cell.value.substring(2, cell.value.length-1)
-        value = store.getState().cell_map[ref].value
+      if(cell.value.startsWith('=')){
+        value = this.calcExpression(cell.value.substring(1).trim())
       } else {
         value = cell.value
       }
