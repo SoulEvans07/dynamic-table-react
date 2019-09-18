@@ -55,6 +55,22 @@ class DynamicTable extends Component {
     this.dispatch({ type: "ADD_ROW", payload: { id: `row_${index}`, style: {}, index, tableId } })
   }
 
+  editSelected = (event) => {
+    const ref = this.state.selected_cell
+    const [, tableId, colId, rowId] = ref.match(/^#(\w+)@(\w+):(\w+)$/)
+
+    this.props.dispatch({
+      type: "EDIT_CELL", 
+      payload: { 
+        ref,
+        tableId: tableId,
+        colId: colId,
+        rowId: rowId,
+        cell: { value: event.target.value } 
+      }
+    })
+  }
+
   render() {
     const table = this.state.table
     const columns = this.state.columns
@@ -68,7 +84,14 @@ class DynamicTable extends Component {
         <div>{ this.state.selected_cell }</div>
         <div>value: { !!selectedCell && selectedCell.value }</div>
         <div>pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }</div>
-        
+        <div className="EditRow">
+          <i className="Icon fas fa-percentage"></i>
+          <input
+            className="SelectedCell"
+            value={ !!selectedCell && selectedCell.value }
+            onChange={ this.editSelected }
+          />
+        </div>
         <DynamicTableHeader 
           table={ table }
           columns={ columns }
