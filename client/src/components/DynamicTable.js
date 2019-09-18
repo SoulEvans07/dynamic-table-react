@@ -66,7 +66,10 @@ class DynamicTable extends Component {
         tableId: tableId,
         colId: colId,
         rowId: rowId,
-        cell: { value: event.target.value } 
+        cell: {
+          value: event.target.value,
+          inlineEdit: false
+        } 
       }
     })
   }

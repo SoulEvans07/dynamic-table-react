@@ -48,9 +48,9 @@
     }
 
     .TableHeaderCell {
-      border-right: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      border-top: 1px solid #eee;
+      border-width: 1px 1px 1px 0;
+      border-style: solid;
+      border-color: #eee;
       
       padding: 2px 5px;
     }
@@ -70,16 +70,17 @@
         width: $row_num_width;
         color: #ccc;
         padding: 2px 5px;
-        border-right: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        border-left: 1px solid #eee;
+        border-width: 0 1px 1px 1px;
+        border-style: solid;
+        border-color: #eee;
         text-align: center;
         user-select: none;
       }
 
       .TableCell {
-        border-right: 1px solid #eee;
-        border-bottom: 1px solid #eee;
+        border-width: 0 1px 1px 0;
+        border-style: solid;
+        border-color: #eee;
         padding: 0 5px;
         display: flex;
         align-items: center;

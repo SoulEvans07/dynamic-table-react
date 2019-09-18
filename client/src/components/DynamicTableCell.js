@@ -26,13 +26,43 @@ class DynamicTableCell extends Component {
   }
 
   selectCell(table, col, row) {
-    if(this.props.cell) {
-      this.refs.el.innerText = this.props.cell.value
-    }
-    this.props.dispatch({ type: "SELECT_CELL", payload: { selected_cell: getRef(table, col, row) } })
+    const ref = getRef(table, col, row)
+    this.props.dispatch({
+      type: "EDIT_CELL", 
+      payload: { 
+        ref,
+        tableId: table.id,
+        colId: col.id,
+        rowId: row.id,
+        cell: { 
+          inlineEdit: true
+        } 
+      }
+    })
+    this.props.dispatch({ type: "SELECT_CELL", payload: { selected_cell: ref } })
   }
 
-  editCell = () => {
+  editCell = (event) => {
+    const table = this.props.table
+    const col = this.props.column
+    const row = this.props.row
+    const ref = getRef(table.id, col.id, row.id)
+
+    this.props.dispatch({
+      type: "EDIT_CELL", 
+      payload: { 
+        ref,
+        tableId: table.id,
+        colId: col.id,
+        rowId: row.id,
+        cell: { 
+          value: event.target.value
+        } 
+      }
+    })
+  }
+
+  updateCell = () => {
     const table = this.props.table
     const col = this.props.column
     const row = this.props.row
@@ -44,13 +74,16 @@ class DynamicTableCell extends Component {
         tableId: table.id,
         colId: col.id,
         rowId: row.id,
-        cell: { value: this.refs.el.innerText } 
+        cell: { 
+          inlineEdit: false
+        } 
       }
     })
-    this.refs.el.innerText = this.calcValue(this.props.cell)
   }
 
   calcExpression(expr) {
+    if(!expr) return "#REF!"
+
     const map = store.getState().cell_map
     const tokenize = (ex) => ex.split(/(#\w+@\w+:\w+)/)
     let value = ""
@@ -105,23 +138,23 @@ class DynamicTableCell extends Component {
     if(cell) {
       cellStyle = { ...cellStyle, ...cell.style }
 
-      value = this.calcValue(cell)      
+      if(cell.inlineEdit) {
+        value = cell.value
+      } else {
+        value = this.calcValue(cell)      
+      }
     }
     
     return (
-      <div 
-        contentEditable
-        suppressContentEditableWarning
-        ref="el"
+      <input 
         className={ cellStyleClass.join(' ') }
         style={ cellStyle }
         key={ getRef(table.id, col.id, row.id) }
-        onClick={ () => this.selectCell(table.id, col.id, row.id) }
         onFocus={ () => this.selectCell(table.id, col.id, row.id) }
-        onBlur={ this.editCell }
-      >
-        { !!cell && value }
-      </div>
+        onChange={ this.editCell }
+        onBlur={ this.updateCell }
+        value={ value }
+      />
     )
   }
 }
