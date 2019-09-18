@@ -25,7 +25,9 @@ class DynamicTableCell extends Component {
   }
 
   selectCell(table, col, row) {
-    this.refs.el.innerText = this.props.cell.value
+    if(this.props.cell) {
+      this.refs.el.innerText = this.props.cell.value
+    }
     this.props.dispatch({ type: "SELECT_CELL", payload: { selected_cell: getRef(table, col, row) } })
   }
 
@@ -50,7 +52,7 @@ class DynamicTableCell extends Component {
   calcValue(cell) {
     let value = ""
 
-    if(cell){
+    if(cell && cell.value && typeof cell.value === 'string'){
       if(cell.value.startsWith('${') && cell.value.endsWith('}')){
         const ref = cell.value.substring(2, cell.value.length-1)
         value = store.getState().cell_map[ref].value

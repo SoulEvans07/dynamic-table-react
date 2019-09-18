@@ -50,9 +50,17 @@
       .TableCell {
         border-right: 1px solid #eee;
         border-bottom: 1px solid #eee;
-        padding: 2px 5px;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
         overflow: hidden;
         text-overflow: clip;
+
+        &:focus {
+          overflow: visible;
+          text-overflow: unset;
+          white-space: nowrap;
+        }
 
         &.selected {
           outline: 1px auto #8888ff;
