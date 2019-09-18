@@ -69,6 +69,7 @@ class DynamicTableCell extends Component {
         style={ cellStyle }
         key={ getRef(table.id, col.id, row.id) }
         onClick={ () => this.selectCell(table.id, col.id, row.id) }
+        onFocus={ () => this.selectCell(table.id, col.id, row.id) }
         onBlur={ this.editCell }
       >
         { !!cell && cell.value }

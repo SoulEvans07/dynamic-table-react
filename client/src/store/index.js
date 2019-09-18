@@ -7,6 +7,10 @@ function addRow(state, payload) {
   return { ...state, rows: [ ...state.rows, payload ] }
 }
 
+function addCol(state, payload) {
+  return { ...state, columns: [ ...state.columns, payload ]}
+}
+
 function selectCell(state, payload) {
   return { ...state, selected_cell: payload.selected_cell }
 }
@@ -18,7 +22,9 @@ function editCell(state, payload) {
   if(cell) {
     const index = state.cells.indexOf(cell)
     cell = { ...cell, ...payload.cell }
-    cells[index] = cell
+    if(cells[index] !== cell){
+      cells[index] = cell
+    }
   } else {
     cell = {
       // TODO: id
@@ -48,6 +54,8 @@ function rootReducer(state, action) {
   switch (action.type) {
     case "ADD_ROW":
       return addRow(state, action.payload)
+    case "ADD_COLUMN":
+      return addCol(state, action.payload)
     case "SELECT_CELL":
       return selectCell(state, action.payload)
     case "EDIT_CELL":

@@ -70,7 +70,8 @@ class DynamicTable extends Component {
         <div>pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }</div>
         
         <DynamicTableHeader 
-          state={{ columns }}
+          table={ table }
+          columns={ columns }
           dispatch={ this.dispatch }
         />
         <div className="TableRows">
