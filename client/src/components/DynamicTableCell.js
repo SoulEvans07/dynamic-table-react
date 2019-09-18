@@ -25,6 +25,7 @@ class DynamicTableCell extends Component {
   }
 
   selectCell(table, col, row) {
+    this.refs.el.innerText = this.props.cell.value
     this.props.dispatch({ type: "SELECT_CELL", payload: { selected_cell: getRef(table, col, row) } })
   }
 
@@ -43,6 +44,22 @@ class DynamicTableCell extends Component {
         cell: { value: this.refs.el.innerText } 
       }
     })
+    this.refs.el.innerText = this.calcValue(this.props.cell)
+  }
+
+  calcValue(cell) {
+    let value = ""
+
+    if(cell){
+      if(cell.value.startsWith('${') && cell.value.endsWith('}')){
+        const ref = cell.value.substring(2, cell.value.length-1)
+        value = store.getState().cell_map[ref].value
+      } else {
+        value = cell.value
+      }
+    }
+
+    return value
   }
 
   render() {
@@ -51,6 +68,8 @@ class DynamicTableCell extends Component {
     const cell = this.props.cell
     const row = this.props.row
 
+    let value = ""
+
     const cellStyleClass = [ "TableCell" ]
     let cellStyle = { ...col.style }
     if(this.isSelected(table.id, col.id, row.id)) {
@@ -58,6 +77,8 @@ class DynamicTableCell extends Component {
     }
     if(cell) {
       cellStyle = { ...cellStyle, ...cell.style }
+
+      value = this.calcValue(cell)      
     }
     
     return (
@@ -72,7 +93,7 @@ class DynamicTableCell extends Component {
         onFocus={ () => this.selectCell(table.id, col.id, row.id) }
         onBlur={ this.editCell }
       >
-        { !!cell && cell.value }
+        { !!cell && value }
       </div>
     )
   }

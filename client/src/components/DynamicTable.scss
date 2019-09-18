@@ -51,6 +51,8 @@
         border-right: 1px solid #eee;
         border-bottom: 1px solid #eee;
         padding: 2px 5px;
+        overflow: hidden;
+        text-overflow: clip;
 
         &.selected {
           outline: 1px auto #8888ff;
