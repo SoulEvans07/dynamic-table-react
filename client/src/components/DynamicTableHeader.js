@@ -31,7 +31,7 @@ class DynamicTableHeader extends Component {
         <div className="TableCorner" />
         { columns.map(header => 
           <div className="TableHeaderCell" style={ header.style } key={ header.id }>
-            { header.title }
+            <span>{ header.title }</span>
           </div>)
         }
         <div className="TableHeaderCell"

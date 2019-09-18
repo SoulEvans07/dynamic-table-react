@@ -21,12 +21,19 @@ class DynamicTableCell extends Component {
     })
   }
 
-  isSelected(table, col, row) {
-    return getRef(table, col, row) === this.state.selected_cell
+  isSelected = () => {
+    const table = this.props.table
+    const col = this.props.column
+    const row = this.props.row
+    return getRef(table.id, col.id, row.id) === this.state.selected_cell
   }
 
-  selectCell(table, col, row) {
-    const ref = getRef(table, col, row)
+  selectCell = () => {
+    const table = this.props.table
+    const col = this.props.column
+    const row = this.props.row
+    const ref = getRef(table.id, col.id, row.id)
+
     this.props.dispatch({
       type: "EDIT_CELL", 
       payload: { 
@@ -132,7 +139,7 @@ class DynamicTableCell extends Component {
 
     const cellStyleClass = [ "TableCell" ]
     let cellStyle = { ...col.style }
-    if(this.isSelected(table.id, col.id, row.id)) {
+    if(this.isSelected()) {
       cellStyleClass.push("selected")
     }
     if(cell) {
@@ -146,15 +153,18 @@ class DynamicTableCell extends Component {
     }
     
     return (
-      <input 
-        className={ cellStyleClass.join(' ') }
-        style={ cellStyle }
-        key={ getRef(table.id, col.id, row.id) }
-        onFocus={ () => this.selectCell(table.id, col.id, row.id) }
-        onChange={ this.editCell }
-        onBlur={ this.updateCell }
-        value={ value }
-      />
+      <div className={ cellStyleClass.join(' ') } style={ cellStyle }>
+        <input
+          key={ getRef(table.id, col.id, row.id) }
+          onFocus={ this.selectCell }
+          onChange={ this.editCell }
+          onBlur={ this.updateCell }
+          value={ value }
+        />
+        { this.isSelected() && 
+          <div className="SelectionDot"></div>
+        }
+      </div>
     )
   }
 }
