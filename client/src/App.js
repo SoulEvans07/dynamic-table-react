@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.scss'
 
-import DynamicTable from './components/DynamicTable'
+import TableDataView from './components/TableDataView'
 import TableDesignView from './components/TableDesignView';
 import store from './store';
 
@@ -52,7 +52,7 @@ class App extends Component {
         </div>
         <div className="content">
           { (columns && mode === 'data') &&
-            <DynamicTable 
+            <TableDataView 
               state={{
                 table, 
                 columns, 
@@ -67,6 +67,7 @@ class App extends Component {
           }
           { (columns && mode === 'design') &&
             <TableDesignView
+              table={ table }
               columns={ columns }
               dispatch={ this.dispatch }
             />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DynamicTableHeader from './DynamicTableHeader'
 import DynamicTableRow from './DynamicTableRow'
-import './DynamicTable.scss'
+import './TableDataView.scss'
 import getRef from '../helpers/getRef'
 import store from '../store';
 
@@ -87,45 +87,45 @@ class DynamicTable extends Component {
     const selectedCell = cell_map[selected_cell]
 
     return (
-      <div className="Table">
-        <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }}>
-          <div>
-            ref: { this.state.selected_cell }
-          </div>
-          <div style={{ marginLeft: '15px' }}>
-            pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }
-          </div>
-        </div>
-        <div className="EditRow">
-          <i className="Icon fas fa-percentage"></i>
-          <input
-            className="SelectedCell"
-            value={ selectedCell ? selectedCell.value : "" }
-            onChange={ this.editSelected }
-          />
-        </div>
-        <DynamicTableHeader 
-          table={ table }
-          columns={ columns }
-          dispatch={ this.dispatch }
-        />
-        <div className="TableRows">
-          { !!rows && rows.map(row => 
-            <DynamicTableRow 
-              key={ row.id }
-              table={ table }
-              columns={ columns }
-              row={ row }
-              state={{
-                cell_map,
-                selected_cell
-              }}
-              dispatch={ this.props.dispatch }
+      <div className="DataView">
+        <div className="Table">
+          {/* <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }}>
+            <div>
+              ref: { this.state.selected_cell }
+            </div>
+            <div style={{ marginLeft: '15px' }}>
+              pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }
+            </div>
+          </div> */}
+          <div className="EditRow">
+            <i className="Icon fas fa-percentage"></i>
+            <input
+              className="SelectedCell"
+              value={ selectedCell ? selectedCell.value : "" }
+              onChange={ this.editSelected }
             />
-          )}
-          <div className="TableRow">
-            <div className="TableRowNum" onClick={ () => this.addRowHandler(table.id, rows.length) }>+</div>
           </div>
+          <DynamicTableHeader 
+            table={ table }
+            columns={ columns }
+            dispatch={ this.dispatch }
+          />
+          <div className="TableRows">
+            { !!rows && rows.map(row => 
+              <DynamicTableRow 
+                key={ row.id }
+                table={ table }
+                columns={ columns }
+                row={ row }
+                state={{
+                  cell_map,
+                  selected_cell
+                }}
+                dispatch={ this.props.dispatch }
+              />
+            )}
+          </div>
+          <div className="AddNewRow" onClick={ () => this.addRowHandler(table.id, rows.length) }>+</div>
         </div>
       </div>
     )

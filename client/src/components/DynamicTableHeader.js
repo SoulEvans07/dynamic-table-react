@@ -34,13 +34,13 @@ class DynamicTableHeader extends Component {
             <span>{ header.title }</span>
           </div>)
         }
-        <div className="TableHeaderCell"
+        {/* <div className="TableHeaderCell"
           contentEditable
           suppressContentEditableWarning
           ref="newCol"
           style={{ width: "50px", textAlign: "center" }}
           onBlur={ () => this.addColumn(table.id, columns.length) }>
-        </div>
+        </div> */}
       </div>
     )
   }
