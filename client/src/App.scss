@@ -26,6 +26,53 @@
     color: #6086ac;
     font-size: 1.25em;
   }
+
+  .Tools {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+
+    * {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-width: 1px 0 1px 1px;
+      border-style: solid;
+      border-color: #ddd;
+      background: #eee;
+      
+      &:hover {
+        background: darken(#eee, 5%);
+      }
+
+      &:active {
+        background: darken(#eee, 10%);
+      }
+    }
+
+    div {
+      padding: 0 8px;
+    }
+
+    i {
+      width: 30px;
+      height: 30px;
+      color: #999;
+      font-size: 16px;
+
+    }
+
+    *:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+
+    *:last-child {
+      border-width: 1px 1px 1px 1px;
+      border-radius: 0 3px 3px 0;
+    }
+  }
 }
 
 .content {

@@ -8,7 +8,7 @@ class DynamicTableCell extends Component {
     super()
     this.state = props.state
 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       const state = store.getState()
 
       const current = {
@@ -19,6 +19,10 @@ class DynamicTableCell extends Component {
         this.setState(current)
       }
     })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   isSelected = () => {

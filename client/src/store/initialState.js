@@ -2,6 +2,7 @@
 
 const initialState = {
   error: null,
+  mode: 'data',
   selected_table: "table_1",
   selected_cell: null,
 

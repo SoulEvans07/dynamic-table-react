@@ -13,7 +13,7 @@ class DynamicTable extends Component {
       ...props.state,
     }
 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       const state = store.getState()
 
       const selected_cell = state.selected_cell
@@ -38,6 +38,10 @@ class DynamicTable extends Component {
         this.setState(current)
       }
     })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   getExcelPos(ref) {
@@ -84,8 +88,14 @@ class DynamicTable extends Component {
 
     return (
       <div className="Table">
-        <div>ref: { this.state.selected_cell }</div>
-        <div>pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }</div>
+        <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }}>
+          <div>
+            ref: { this.state.selected_cell }
+          </div>
+          <div style={{ marginLeft: '15px' }}>
+            pos: { !!this.state.selected_cell && this.getExcelPos(this.state.selected_cell) }
+          </div>
+        </div>
         <div className="EditRow">
           <i className="Icon fas fa-percentage"></i>
           <input

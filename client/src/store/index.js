@@ -50,6 +50,10 @@ function refreshCellMap(state) {
   return { ...state, cell_map: map }
 }
 
+function changeMode(state, payload) {
+  return { ...state, mode: payload.mode }
+}
+
 function rootReducer(state, action) {
   switch (action.type) {
     case "ADD_ROW":
@@ -62,6 +66,8 @@ function rootReducer(state, action) {
       return editCell(state, action.payload)
     case "REFRESH_CELLMAP":
       return refreshCellMap(state)
+    case "CHANGE_MODE":
+      return changeMode(state, action.payload)
     default:
       return state
   }
@@ -74,7 +80,7 @@ const loadState = function() {
     if (serializedState === null) {
       return initialState
     }
-    return JSON.parse(serializedState)
+    return { ...initialState, ...JSON.parse(serializedState) }
   } catch (err) {
     return initialState
   }

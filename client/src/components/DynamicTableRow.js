@@ -8,7 +8,7 @@ class DynamicTableRow extends Component {
     super()
     this.state = props.state
 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       const state = store.getState()
 
       const cell_map = state.cell_map
@@ -23,6 +23,10 @@ class DynamicTableRow extends Component {
         this.setState(current)
       }
     })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   render() {
